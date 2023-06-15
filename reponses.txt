@@ -1,6 +1,6 @@
 1. Comment lister les conteneurs en cours d’exécution ? Comment lister tous les conteneurs ?
 Pour lister les conteneurs en cours d'exécution il faut utiliser la commande : `docker ps`.
-Cette commande indique seulement les conteneurs en cours d'execution et pas ceux qui sont arrêter donc pour les afficher tous, il faut utiliser la commande suivante : `docker ps -a`.
+Cette commande indique seulement les conteneurs en cours d'exécution et pas ceux qui sont arrêtés donc pour les afficher tous, il faut utiliser la commande suivante : `docker ps -a`.
 Voici un exemple du rendu de la commande :
 CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                     NAMES
 a9db32169938   cuicui-web    "/bin/sh -c 'bash -c…"   21 minutes ago   Up 21 minutes   0.0.0.0:80->80/tcp        cuicui-web-1
@@ -10,7 +10,7 @@ ed575b0107e7   postgres:13   "docker-entrypoint.s…"   21 minutes ago   Up 21 m
 2. Comment effectuer une requête dans la base de données PostgreSQL via le terminal de la machine hôte ?
 Pour requête la base de données PostgreSQL il faut utiliser la commande suivante :
 docker exec -it `nom_conteneur_postgres` psql -U `utilisateur` -d `base_de_donnees`
-Dans notre cas cela resemble avec les bonnes valeurs a ceci :
+Dans notre cas cela ressemble avec les bonnes valeurs à ceci :
 docker exec -it ed575b0107e7 psql -U django -d cuicui-db;
 Pour vérifier que cela fonctionne on peut utiliser la commande suivante :
 SELECT * FROM board_message;
