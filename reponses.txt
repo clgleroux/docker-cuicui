@@ -1,0 +1,40 @@
+1. Comment lister les conteneurs en cours d’exécution ? Comment lister tous les conteneurs ?
+Pour lister les conteneurs en cours d'exécution il faut utiliser la commande : `docker ps`.
+Cette commande indique seulement les conteneurs en cours d'execution et pas ceux qui sont arrêter donc pour les afficher tous, il faut utiliser la commande suivante : `docker ps -a`.
+Voici un exemple du rendu de la commande :
+CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                     NAMES
+a9db32169938   cuicui-web    "/bin/sh -c 'bash -c…"   21 minutes ago   Up 21 minutes   0.0.0.0:80->80/tcp        cuicui-web-1
+ed575b0107e7   postgres:13   "docker-entrypoint.s…"   21 minutes ago   Up 21 minutes   5432/tcp                  cuicui-db-1
+3eba977cfa26   redis:6       "docker-entrypoint.s…"   21 minutes ago   Up 21 minutes   6379/tcp                  cuicui-redis-1
+
+2. Comment effectuer une requête dans la base de données PostgreSQL via le terminal de la machine hôte ?
+Pour requête la base de données PostgreSQL il faut utiliser la commande suivante :
+docker exec -it `nom_conteneur_postgres` psql -U `utilisateur` -d `base_de_donnees`
+Dans notre cas cela resemble avec les bonnes valeurs a ceci :
+docker exec -it ed575b0107e7 psql -U django -d cuicui-db;
+Pour vérifier que cela fonctionne on peut utiliser la commande suivante :
+SELECT * FROM board_message;
+Et voici le résultat :
+ id |  name  | content |          created_at
+----+--------+---------+-------------------------------
+  1 | Chichi | Coucou  | 2023-06-15 22:10:58.766886+00
+
+
+NB : 
+> docker exec a9db32169938 python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  No migrations to apply.
+  Your models in app(s): 'board' have changes that are not yet reflected in a migration, and so won't be applied.
+  Run 'manage.py makemigrations' to make new migrations, and then re-run 'manage.py migrate' to apply them.
+
+Donc j'ai lancer cette commande à la main
+> docker exec a9db32169938 python manage.py makemigrations
+Migrations for 'board':
+  board/migrations/0001_initial.py
+    - Create model Message
+
+Comme si la commande dans le Dockerfile `RUN python manage.py makemigrations board` ne fonctionnait pas
+
+Lien Docker Hub : 
