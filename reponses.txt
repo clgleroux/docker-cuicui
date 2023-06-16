@@ -37,4 +37,4 @@ Migrations for 'board':
 
 Comme si la commande dans le Dockerfile `RUN python manage.py makemigrations board` ne fonctionnait pas
 
-Lien Docker Hub : 
+Lien Docker Hub : https://hub.docker.com/repository/docker/clementu/docker-cuicui/general
